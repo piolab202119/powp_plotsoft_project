@@ -9,13 +9,14 @@ import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.powp.adapter.LineAdapterPlotterDriver;
 import edu.iis.powp.app.Application;
-import edu.iis.powp.appext.FeaturesManager;
 import edu.iis.powp.command.gui.CommandManagerWindow;
 import edu.iis.powp.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.iis.powp.events.SelectLoadSecretCommandOptionListener;
 import edu.iis.powp.events.SelectRunCurrentCommandOptionListener;
 import edu.iis.powp.events.SelectTestFigure2OptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.features.CommandsFeature;
+import edu.iis.powp.features.DrawerFeature;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.LineFactory;
 
@@ -29,8 +30,10 @@ public class TestPlotterApp {
 	 *            Application context.
 	 */
 	private static void setupPresetTests(Application application) {
-		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-		SelectTestFigure2OptionListener selectTestFigure2OptionListener = new SelectTestFigure2OptionListener();
+		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener(
+				application.getDriverManager());
+		SelectTestFigure2OptionListener selectTestFigure2OptionListener = new SelectTestFigure2OptionListener(
+				application.getDriverManager());
 
 		application.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		application.addTest("Figure Joe 2", selectTestFigure2OptionListener);
@@ -45,7 +48,7 @@ public class TestPlotterApp {
 	private static void setupCommandTests(Application application) {
 		application.addTest("Load secret command", new SelectLoadSecretCommandOptionListener());
 
-		application.addTest("Run command", new SelectRunCurrentCommandOptionListener());
+		application.addTest("Run command", new SelectRunCurrentCommandOptionListener(application.getDriverManager()));
 
 	}
 
@@ -59,10 +62,10 @@ public class TestPlotterApp {
 		IPlotter clientPlotter = new ClientPlotter();
 		application.addDriver("Client Plotter", clientPlotter);
 
-		DrawPanelController drawerController = FeaturesManager.drawerController();
+		DrawPanelController drawerController = DrawerFeature.getDrawerController();
 		IPlotter plotter = new LineAdapterPlotterDriver(drawerController, LineFactory.getBasicLine(), "basic");
 		application.addDriver("Line Simulator", plotter);
-		FeaturesManager.getDriverManager().setCurrentPlotter(plotter);
+		application.getDriverManager().setCurrentPlotter(plotter);
 
 		plotter = new LineAdapterPlotterDriver(drawerController, LineFactory.getSpecialLine(), "special");
 		application.addDriver("Special line Simulator", plotter);
@@ -71,12 +74,12 @@ public class TestPlotterApp {
 
 	private static void setupWindows(Application application) {
 
-		CommandManagerWindow commandManager = new CommandManagerWindow(FeaturesManager.getPlotterCommandManager());
+		CommandManagerWindow commandManager = new CommandManagerWindow(CommandsFeature.getPlotterCommandManager());
 		application.addWindowComponent("Command Manager", commandManager);
 
 		CommandManagerWindowCommandChangeObserver windowObserver = new CommandManagerWindowCommandChangeObserver(
 				commandManager);
-		FeaturesManager.getPlotterCommandManager().getChangePublisher().addSubscriber(windowObserver);
+		CommandsFeature.getPlotterCommandManager().getChangePublisher().addSubscriber(windowObserver);
 	}
 
 	/**
@@ -106,7 +109,8 @@ public class TestPlotterApp {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				Application app = new Application();
-				FeaturesManager.expandApplication(app);
+				DrawerFeature.setupDrawerPlugin(app);
+				CommandsFeature.setupCommandManager();
 
 				setupDrivers(app);
 				setupPresetTests(app);

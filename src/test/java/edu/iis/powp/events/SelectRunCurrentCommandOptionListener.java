@@ -3,13 +3,21 @@ package edu.iis.powp.events;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.iis.powp.appext.FeaturesManager;
+import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.command.IPlotterCommand;
+import edu.iis.powp.features.CommandsFeature;
 
 public class SelectRunCurrentCommandOptionListener implements ActionListener {
+
+	private DriverManager driverManager;
+
+	public SelectRunCurrentCommandOptionListener(DriverManager driverManager) {
+		this.driverManager = driverManager;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		IPlotterCommand command = FeaturesManager.getPlotterCommandManager().getCurrentCommand();
-		command.execute(FeaturesManager.getDriverManager().getCurrentPlotter());
+		IPlotterCommand command = CommandsFeature.getPlotterCommandManager().getCurrentCommand();
+		command.execute(driverManager.getCurrentPlotter());
 	}
 }

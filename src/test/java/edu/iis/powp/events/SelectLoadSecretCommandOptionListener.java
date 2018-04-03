@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.iis.powp.appext.FeaturesManager;
 import edu.iis.powp.command.DrawToCommand;
 import edu.iis.powp.command.IPlotterCommand;
 import edu.iis.powp.command.SetPositionCommand;
 import edu.iis.powp.command.manager.PlotterCommandManager;
+import edu.iis.powp.features.CommandsFeature;
 
 public class SelectLoadSecretCommandOptionListener implements ActionListener {
 
@@ -31,7 +31,7 @@ public class SelectLoadSecretCommandOptionListener implements ActionListener {
 		commands.add(new DrawToCommand(70, 50));
 		commands.add(new DrawToCommand(20, 50));
 
-		PlotterCommandManager manager = FeaturesManager.getPlotterCommandManager();
+		PlotterCommandManager manager = CommandsFeature.getPlotterCommandManager();
 		manager.setCurrentCommand(commands, "TopSecretCommand");
 	}
 }
