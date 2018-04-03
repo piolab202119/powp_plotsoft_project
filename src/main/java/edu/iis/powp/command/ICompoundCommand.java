@@ -8,5 +8,5 @@ import java.util.Iterator;
 public interface ICompoundCommand extends IPlotterCommand {
 
 	public Iterator<IPlotterCommand> iterator();
-	
+
 }

@@ -5,24 +5,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-public class SelectJFrameWindowMenuOptionListener implements ActionListener
-{
-    private JFrame window = null;
-    
-    public SelectJFrameWindowMenuOptionListener(JFrame window)
-    {
-        this.window = window;
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-    	if(window.isVisible()) {
-    		window.setVisible(false);
-		}
-		else {
+public class SelectJFrameWindowMenuOptionListener implements ActionListener {
+	private JFrame window = null;
+
+	public SelectJFrameWindowMenuOptionListener(JFrame window) {
+		this.window = window;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (window.isVisible()) {
+			window.setVisible(false);
+		} else {
 			window.setVisible(true);
 		}
-    }
+	}
 }
-

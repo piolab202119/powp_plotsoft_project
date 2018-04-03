@@ -14,9 +14,8 @@ import edu.iis.powp.command.manager.PlotterCommandManager;
 public class SelectLoadSecretCommandOptionListener implements ActionListener {
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-	    List<IPlotterCommand> commands = new ArrayList<IPlotterCommand>(); 
+	public void actionPerformed(ActionEvent e) {
+		List<IPlotterCommand> commands = new ArrayList<IPlotterCommand>();
 		commands.add(new SetPositionCommand(-20, -50));
 		commands.add(new DrawToCommand(-20, -50));
 		commands.add(new SetPositionCommand(-20, -40));
@@ -31,8 +30,8 @@ public class SelectLoadSecretCommandOptionListener implements ActionListener {
 		commands.add(new DrawToCommand(70, 0));
 		commands.add(new DrawToCommand(70, 50));
 		commands.add(new DrawToCommand(20, 50));
-		
-	    PlotterCommandManager manager = FeaturesManager.getPlotterCommandManager();
-	    manager.setCurrentCommand(commands, "TopSecretCommand");
+
+		PlotterCommandManager manager = FeaturesManager.getPlotterCommandManager();
+		manager.setCurrentCommand(commands, "TopSecretCommand");
 	}
 }

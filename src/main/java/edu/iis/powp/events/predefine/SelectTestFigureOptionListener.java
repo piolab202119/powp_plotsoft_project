@@ -6,12 +6,10 @@ import java.awt.event.ActionListener;
 import edu.iis.client.plottermagic.preset.FiguresJoe;
 import edu.iis.powp.appext.FeaturesManager;
 
-public class SelectTestFigureOptionListener implements ActionListener
-{
+public class SelectTestFigureOptionListener implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        FiguresJoe.figureScript1(FeaturesManager.getDriverManager().getCurrentPlotter());
-    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		FiguresJoe.figureScript1(FeaturesManager.getDriverManager().getCurrentPlotter());
+	}
 }

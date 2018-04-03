@@ -7,11 +7,12 @@ import edu.iis.client.plottermagic.IPlotter;
  */
 public interface IPlotterCommand {
 
-    /**
-     * Execute command on plotter.
-     * 
-     * @param plotter plotter.
-     */
+	/**
+	 * Execute command on plotter.
+	 * 
+	 * @param plotter
+	 *            plotter.
+	 */
 	public void execute(IPlotter plotter);
-	
+
 }

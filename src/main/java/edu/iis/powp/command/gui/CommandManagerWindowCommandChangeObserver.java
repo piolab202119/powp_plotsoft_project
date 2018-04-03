@@ -5,7 +5,7 @@ import edu.iis.powp.observer.Subscriber;
 public class CommandManagerWindowCommandChangeObserver implements Subscriber {
 
 	private CommandManagerWindow commandManagerWindow;
-	
+
 	public CommandManagerWindowCommandChangeObserver(CommandManagerWindow commandManagerWindow) {
 		super();
 		this.commandManagerWindow = commandManagerWindow;
@@ -17,7 +17,7 @@ public class CommandManagerWindowCommandChangeObserver implements Subscriber {
 
 	@Override
 	public void update() {
-		commandManagerWindow.updateCurrentCommandField();	
+		commandManagerWindow.updateCurrentCommandField();
 	}
 
 }
